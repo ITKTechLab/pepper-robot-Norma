@@ -1,15 +1,16 @@
+#Hent alle de biblioteker som Norma har brug for 
 from naoqi import ALProxy
 import pygame
 
-# Connect to Pepper
+# Connect to Norma
 IP = "192.168.1.155"
 PORT = 9559
 
-# Function to map joystick input to Pepper movement
+# Function to map joystick input to Norma movement
 def process_joystick_input(joystick, motion):
     pygame.event.pump()
     
-    # Left joystick - Move Pepper
+    # Left joystick - Move Norma
     x_axis = joystick.get_axis(0)  # Left stick X-axis (-1 to 1, left to right)
     y_axis = -joystick.get_axis(1)  # Left stick Y-axis (-1 to 1, forward to backward)
 
@@ -32,7 +33,7 @@ def process_joystick_input(joystick, motion):
     if abs(head_pitch) < threshold:
         head_pitch = 0
 
-    # Move Pepper's body
+    # Move Normas body
     motion.move(y_axis * move_speed, 0, x_axis * move_speed)
 
     # Get current head position
@@ -47,7 +48,7 @@ def process_joystick_input(joystick, motion):
     new_yaw = max(-2.0, min(2.0, new_yaw))  # HeadYaw range (-2.0 to 2.0)
     new_pitch = max(-0.5, min(0.5, new_pitch))  # HeadPitch range (-0.5 to 0.5)
 
-    # Move Pepper's head
+    # Move Norma's head
     motion.setAngles(["HeadYaw", "HeadPitch"], [new_yaw, new_pitch], 0.1)
 
 def process_joystick_buttons(joystick, tts, animation):
@@ -82,7 +83,7 @@ def main():
         print("Starting movement control...")
 
     except Exception as e:
-        print("Error connecting to Pepper: {}".format(e))
+        print("Error connecting to Norma: {}".format(e))
         return
 
     # Initialize pygame and joystick
